@@ -1,12 +1,16 @@
 name: def-cai
 codename: DEF-CAI
 domain: defense
+version: "0.1.0"
 python: "3.11"
 paper:
   arxiv: "2504.06017"
   title: "CAI: An Open, Bug Bounty-Ready Cybersecurity AI"
+  authors: "Victor Mayoral-Vilches et al."
+  repo: "https://github.com/aliasrobotics/cai"
 entrypoints:
   module: "anima_def_cai"
+  cli: "anima_def_cai.cli:app"
   service: "anima_def_cai.serve:main"
 runtime:
   package_manager: uv
@@ -15,3 +19,46 @@ runtime:
     - mlx
     - cuda
     - cpu
+  model_backends:
+    - openai
+    - anthropic
+    - google
+    - deepseek
+    - ollama
+    - mock
+capabilities:
+  - agent_orchestration
+  - benchmark_evaluation
+  - safety_guardrails
+  - session_tracing
+  - ros2_inspection
+  - robot_security
+  - findings_reporting
+api:
+  framework: fastapi
+  port: 8080
+  endpoints:
+    - GET /health
+    - GET /ready
+    - GET /info
+    - POST /sessions/run
+    - POST /eval/run
+    - GET /eval/datasets
+    - GET /findings/paper-delta
+docker:
+  dockerfile: Dockerfile.serve
+  compose: docker-compose.serve.yml
+  profiles:
+    - serve
+    - api
+    - test
+ros2:
+  enabled: false
+  domain_id: 42
+  topics: []
+  services: []
+status:
+  mvp_readiness: 85
+  tests_passing: 100
+  prds_complete: 7
+  prds_total: 7
