@@ -1,19 +1,33 @@
 [project]
-name = "anima-daikokuten"
-codename = "DAIKOKUTEN"
-functional_name = "DEF-cai"
+name = "anima-def-cai"
+codename = "DEF-CAI"
+functional_name = "def-cai"
 wave = 7
-paper_arxiv = "2503.16012"
+paper_arxiv = "2504.06017"
+python_version = "3.11"
 
-[compute]
-backend = "auto"  # "mlx", "cuda", "auto"
-precision = "fp32"
+[runtime]
+model_backend = "openai"
+model_name = "gpt-4o-2024-11-20"
+compute_backend = "auto"
+tracing_enabled = true
+hitl_enabled = true
+max_turns = 100
+tool_timeout_seconds = 120
 
-[data]
-shared_volume = "/Volumes/AIFlowDev/RobotFlowLabs/datasets"
-repos_volume = "/Volumes/AIFlowDev/RobotFlowLabs/repos/wave7"
+[paths]
+reference_repo_root = "repositories/cai"
+benchmark_root = "repositories/cai/benchmarks"
+paper_pdf = "papers/2504.06017_CAI-An-Open-Bug-Bounty-Ready-Cybersecurity-AI.pdf"
+report_root = "outputs/reports"
+artifact_root = "outputs/artifacts"
+trace_root = "outputs/traces"
 
-[hardware]
-zed2i = true
-unitree_l2_lidar = true
-cobot_xarm6 = false  # Set true when purchased
+[safety]
+tool_policy = "restricted"
+command_allowlist = ["bash", "python", "python3", "sh", "ls", "cat", "sed", "rg"]
+
+[ros2]
+enabled = false
+domain_id = 42
+robot_target_profile = "lab-sim"

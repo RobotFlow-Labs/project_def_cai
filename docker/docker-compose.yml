@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  daikokuten:
+  def-cai:
     build: .
     volumes:
       - /Volumes/AIFlowDev/RobotFlowLabs/datasets:/data:ro

@@ -1,7 +1,7 @@
-# DAIKOKUTEN — Design & Implementation Checklist
+# DEF-CAI — Design & Implementation Checklist
 
-## Paper: CAI: Robot Cybersecurity Framework
-## ArXiv: 2503.16012
+## Paper: CAI: An Open, Bug Bounty-Ready Cybersecurity AI
+## ArXiv: 2504.06017
 ## Repo: https://github.com/aliasrobotics/cai
 
 ---
@@ -17,11 +17,11 @@
 - [ ] PRD.md filled with architecture and plan
 
 ## Phase 2: Reproduce
-- [ ] Core model implemented in src/anima_daikokuten/
+- [ ] Core model implemented in src/anima_def_cai/
 - [ ] Training pipeline (scripts/train.py)
 - [ ] Evaluation pipeline (scripts/eval.py)
 - [ ] Metrics match paper (within ±5%)
-- [ ] Dual-compute verified (MLX + CUDA)
+- [ ] Dual-compute verified (Mac-first MLX + CUDA server path)
 
 ## Phase 3: Adapt to Hardware
 - [ ] ZED 2i data pipeline (if applicable)

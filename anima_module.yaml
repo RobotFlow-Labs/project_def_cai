@@ -1,0 +1,17 @@
+name: def-cai
+codename: DEF-CAI
+domain: defense
+python: "3.11"
+paper:
+  arxiv: "2504.06017"
+  title: "CAI: An Open, Bug Bounty-Ready Cybersecurity AI"
+entrypoints:
+  module: "anima_def_cai"
+  service: "anima_def_cai.serve:main"
+runtime:
+  package_manager: uv
+  compute_backends:
+    - auto
+    - mlx
+    - cuda
+    - cpu

@@ -19,15 +19,17 @@ Resume rule: Read this file completely before making implementation changes.
 
 ## 3. Current Status
 - **Date**: 2026-04-03
-- **Phase**: Planning complete
-- **MVP Readiness**: 15%
+- **Phase**: PRD-02 implementation
+- **MVP Readiness**: 28%
 - **Accomplished**:
   1. Verified scaffold paper mismatch and corrected planning basis
   2. Downloaded correct CAI paper PDF
   3. Inspected reference CAI repo under `repositories/cai`
   4. Generated `ASSETS.md`, `PIPELINE_MAP.md`, `prds/`, and `tasks/`
   5. Updated `PRD.md`, `AGENTS.md`, and `CLAUDE.md` to reflect the verified paper
-- **Next implementation step**: Start `tasks/PRD-0101.md`
+  6. Completed PRD-01 foundation repair with the `anima_def_cai` package, typed settings/schemas, and Python 3.11 / uv baseline
+  7. Added minimal autopilot infra files: `anima_module.yaml`, `Dockerfile.serve`, `docker-compose.serve.yml`, `scripts/train.py`
+- **Next implementation step**: Start `tasks/PRD-0201.md`
 - **Blockers**: Exact private competition assets and private bug bounty targets are unavailable locally
 
 ## 4. Key Assets
@@ -49,3 +51,4 @@ Resume rule: Read this file completely before making implementation changes.
 | Date | Agent | What Happened |
 |---|---|---|
 | 2026-04-03 | Codex | Verified correct CAI paper (`2504.06017`), generated PRD suite and tasks, normalized planning docs |
+| 2026-04-03 | Codex | Completed PRD-01 foundation repair, added typed settings/schemas, 3.11/uv environment, and autopilot infra placeholders |

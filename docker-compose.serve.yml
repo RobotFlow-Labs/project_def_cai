@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  def-cai-serve:
+    build:
+      context: .
+      dockerfile: Dockerfile.serve
+    environment:
+      DEF_CAI_MODEL_BACKEND: openai
+      DEF_CAI_TOOL_POLICY: restricted
+    command: ["python", "-m", "anima_def_cai.serve"]

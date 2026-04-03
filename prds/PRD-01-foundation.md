@@ -2,7 +2,7 @@
 
 > Module: DEF-CAI | Priority: P0  
 > Depends on: None  
-> Status: ⬜ Not started
+> Status: ✅ Complete
 
 ## Objective
 When this PRD is done, the repo has a correct `anima_def_cai` package, typed config/schemas, and a reproducible local scaffold aligned to the verified CAI paper rather than the placeholder `DAIKOKUTEN` scaffold.
@@ -14,11 +14,11 @@ CAI is introduced as an open, bug bounty-ready cybersecurity AI framework built 
 "The framework is constructed around six fundamental pillars that support an integrated system: Agents, Tools, Handoffs, Patterns, Turns, and Human-In-The-Loop (HITL) functionality, with auxiliary elements such as Extensions and Tracing..."
 
 ## Acceptance Criteria
-- [ ] Package namespace is normalized from `anima_daikokuten` to `anima_def_cai`
-- [ ] Settings and config models cover model backend, tool policy, tracing, benchmark, and robotics options
-- [ ] Shared schemas exist for agent specs, tool results, turn state, and findings
-- [ ] `uv run pytest tests/test_settings.py tests/test_schemas.py -v` passes
-- [ ] Repo metadata references the verified CAI paper (`2504.06017`) and not the unrelated `2503.16012`
+- [x] Package namespace is normalized from `anima_daikokuten` to `anima_def_cai`
+- [x] Settings and config models cover model backend, tool policy, tracing, benchmark, and robotics options
+- [x] Shared schemas exist for agent specs, tool results, turn state, and findings
+- [x] `uv run pytest tests/test_settings.py tests/test_schemas.py -v` passes
+- [x] Repo metadata references the verified CAI paper (`2504.06017`) and not the unrelated `2503.16012`
 
 ## Files to Create
 | File | Purpose | Paper Ref | Est. Lines |
