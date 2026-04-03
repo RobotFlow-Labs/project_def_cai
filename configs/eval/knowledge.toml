@@ -1,0 +1,19 @@
+# DEF-CAI Evaluation Config — Knowledge Benchmarks
+# Paper ref: §3.1, Tables 2-3 (CyberMetric + SecEval)
+
+benchmark = "cybermetric"
+
+[eval]
+model_backend = "openai"
+model_name = "gpt-4o-2024-11-20"
+interaction_budget = 100
+agent_pattern = "red_blue"
+tags = ["knowledge", "cybermetric", "paper-table2"]
+
+# To run SecEval instead, set:
+#   benchmark = "seceval"
+#   tags = ["knowledge", "seceval", "paper-table2"]
+
+# To run CTI-Bench:
+#   benchmark = "cti_bench"
+#   tags = ["knowledge", "cti-bench", "paper-table3"]

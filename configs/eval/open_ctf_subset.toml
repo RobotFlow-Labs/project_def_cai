@@ -1,0 +1,19 @@
+# DEF-CAI Evaluation Config — Open CTF Subset
+# Paper ref: §3.1-3.2 (54 CTF exercises, pass100@1)
+#
+# NOTE: The exact HTB competition assets are private. This config targets
+# the publicly available CTF-style challenges from the reference repo's
+# benchmarks. Paper delta: "approximate — private competition targets
+# unavailable."
+
+benchmark = "cti_bench"
+
+[eval]
+model_backend = "openai"
+model_name = "gpt-4o-2024-11-20"
+interaction_budget = 100
+agent_pattern = "bug_bounty"
+tags = ["ctf", "open-subset", "paper-table4", "approximate"]
+
+# To use a custom dataset file:
+# dataset_file = "path/to/ctf_challenges.json"

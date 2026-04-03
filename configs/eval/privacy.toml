@@ -1,0 +1,11 @@
+# DEF-CAI Evaluation Config — Privacy Benchmark
+# Paper ref: §3.2 (CyberPII-Bench)
+
+benchmark = "cyberpii"
+
+[eval]
+model_backend = "openai"
+model_name = "gpt-4o-2024-11-20"
+interaction_budget = 100
+agent_pattern = "red_blue"
+tags = ["privacy", "cyberpii-bench", "paper-table4"]
