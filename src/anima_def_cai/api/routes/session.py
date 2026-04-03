@@ -5,12 +5,13 @@ Paper reference: Section 2 — agent orchestration and tool integration.
 
 from __future__ import annotations
 
+import asyncio
 
 from fastapi import APIRouter
 from pydantic import BaseModel
 
-from anima_def_cai.runtime.session import SessionRequest, run_session
 from anima_def_cai.api.deps import get_settings
+from anima_def_cai.runtime.session import SessionRequest, run_session
 
 router = APIRouter()
 
@@ -39,7 +40,7 @@ async def run(req: SessionRunRequest) -> SessionRunResponse:
         agent_name=req.agent_name,
         pattern_name=req.pattern_name,
     )
-    result = run_session(session_req, settings)
+    result = await asyncio.to_thread(run_session, session_req, settings)
     latest_msg = ""
     if result.state.messages:
         latest_msg = result.state.messages[-1].content[:500]

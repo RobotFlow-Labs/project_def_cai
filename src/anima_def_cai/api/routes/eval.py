@@ -5,6 +5,7 @@ Paper reference: Section 3.1-3.2 — pass@1, pass100@1 metrics.
 
 from __future__ import annotations
 
+import asyncio
 from pathlib import Path
 from typing import Any
 
@@ -49,7 +50,8 @@ async def run_eval(req: EvalRunRequest) -> EvalRunResponse:
         agent_pattern=req.agent_pattern,
         dataset_file=Path(req.dataset_file) if req.dataset_file else None,
     )
-    report = run_benchmark(cfg, settings=get_settings())
+    settings = get_settings()
+    report = await asyncio.to_thread(run_benchmark, cfg, settings=settings)
     m = report.metrics
     return EvalRunResponse(
         run_id=report.run_id,

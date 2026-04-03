@@ -23,7 +23,10 @@ def test_cli_runs_single_agent_session(tmp_path: Path) -> None:
     )
     assert result.exit_code == 0
     assert "Trace:" in result.stdout
-    assert (tmp_path / "trace-session-001" / "findings.json").exists()
+    # Dynamic trace ID — check that at least one trace dir was created
+    trace_dirs = [d for d in tmp_path.iterdir() if d.is_dir() and d.name.startswith("trace-")]
+    assert len(trace_dirs) >= 1
+    assert (trace_dirs[0] / "findings.json").exists()
 
 
 def test_pause_and_collect_restores_execution() -> None:

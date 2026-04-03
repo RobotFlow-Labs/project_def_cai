@@ -68,7 +68,9 @@ def _apply_action(
 
     if action.kind is ActionKind.HANDOFF:
         target = action.target_agent or ""
-        updated = transfer(updated, target, source_agent=source_agent, reason=action.reason or "handoff")
+        updated = transfer(
+            updated, target, source_agent=source_agent, reason=action.reason or "handoff"
+        )
         handoffs.append(f"{source_agent}->{target}")
     elif action.kind is ActionKind.INTERRUPT:
         updated.interrupted = True

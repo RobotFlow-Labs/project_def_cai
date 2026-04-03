@@ -47,21 +47,29 @@ class DEFCAISettings(BaseSettings):
     max_turns: int = 100
     tool_timeout_seconds: int = 120
     command_allowlist: tuple[str, ...] = (
-        "bash",
-        "python",
-        "python3",
-        "sh",
         "ls",
         "cat",
-        "sed",
+        "head",
+        "tail",
+        "wc",
+        "file",
+        "stat",
+        "find",
         "rg",
+        "grep",
+        "whoami",
+        "hostname",
+        "uname",
+        "id",
+        "ps",
+        "ss",
+        "ip",
+        "nmap",
     )
 
     reference_repo_root: Path = Path("repositories/cai")
     benchmark_root: Path = Path("repositories/cai/benchmarks")
-    paper_pdf: Path = Path(
-        "papers/2504.06017_CAI-An-Open-Bug-Bounty-Ready-Cybersecurity-AI.pdf"
-    )
+    paper_pdf: Path = Path("papers/2504.06017_CAI-An-Open-Bug-Bounty-Ready-Cybersecurity-AI.pdf")
     report_root: Path = Path("outputs/reports")
     artifact_root: Path = Path("outputs/artifacts")
     trace_root: Path = Path("outputs/traces")
@@ -130,9 +138,7 @@ class DEFCAISettings(BaseSettings):
         project = data.get("project", {})
         merged["module_name"] = project.get("name", cls.model_fields["module_name"].default)
         merged["codename"] = project.get("codename", cls.model_fields["codename"].default)
-        merged["paper_arxiv"] = project.get(
-            "paper_arxiv", cls.model_fields["paper_arxiv"].default
-        )
+        merged["paper_arxiv"] = project.get("paper_arxiv", cls.model_fields["paper_arxiv"].default)
         merged["python_version"] = str(
             project.get("python_version", cls.model_fields["python_version"].default)
         )
@@ -159,9 +165,7 @@ class DEFCAISettings(BaseSettings):
         safety = data.get("safety", {})
         merged["tool_policy"] = safety.get("tool_policy", cls.model_fields["tool_policy"].default)
         merged["command_allowlist"] = tuple(
-            safety.get(
-                "command_allowlist", cls.model_fields["command_allowlist"].default
-            )
+            safety.get("command_allowlist", cls.model_fields["command_allowlist"].default)
         )
 
         paths = data.get("paths", {})
@@ -177,12 +181,8 @@ class DEFCAISettings(BaseSettings):
                 merged[key] = paths[key]
 
         ros2 = data.get("ros2", {})
-        merged["ros2_enabled"] = ros2.get(
-            "enabled", cls.model_fields["ros2_enabled"].default
-        )
-        merged["ros2_domain_id"] = ros2.get(
-            "domain_id", cls.model_fields["ros2_domain_id"].default
-        )
+        merged["ros2_enabled"] = ros2.get("enabled", cls.model_fields["ros2_enabled"].default)
+        merged["ros2_domain_id"] = ros2.get("domain_id", cls.model_fields["ros2_domain_id"].default)
         merged["robot_target_profile"] = ros2.get(
             "robot_target_profile", cls.model_fields["robot_target_profile"].default
         )

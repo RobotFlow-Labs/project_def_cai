@@ -6,7 +6,9 @@ from anima_def_cai.schemas import FindingRecord, Severity
 
 
 def test_render_findings_outputs_markdown() -> None:
-    finding = FindingRecord(title="Weak SSH", summary="Password auth enabled", severity=Severity.MEDIUM)
+    finding = FindingRecord(
+        title="Weak SSH", summary="Password auth enabled", severity=Severity.MEDIUM
+    )
     markdown = render_findings([finding])
     assert "## Weak SSH" in markdown
     assert "Severity: medium" in markdown

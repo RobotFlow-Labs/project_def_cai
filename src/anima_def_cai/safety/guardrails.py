@@ -106,7 +106,7 @@ def check_output(text: str) -> GuardrailResult:
     """Check output for sensitive data leakage patterns."""
     sensitive_patterns = [
         (re.compile(r"(?:password|passwd|secret)\s*[:=]\s*\S+", re.IGNORECASE), "credential_leak"),
-        (re.compile(r"[A-Za-z0-9+/]{40,}={0,2}"), "possible_base64_secret"),
+        (re.compile(r"[A-Za-z0-9+/]{40,}={1,2}"), "possible_base64_secret"),
         (re.compile(r"-----BEGIN\s+(RSA\s+)?PRIVATE\s+KEY-----"), "private_key_leak"),
     ]
     for pattern, rule_name in sensitive_patterns:

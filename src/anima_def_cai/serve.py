@@ -26,9 +26,10 @@ def main() -> int:
 
     from .api.app import create_app
 
+    host = os.environ.get("ANIMA_SERVE_HOST", "127.0.0.1")
     port = int(os.environ.get("ANIMA_SERVE_PORT", "8080"))
     app = create_app()
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    uvicorn.run(app, host=host, port=port)
     return 0
 
 

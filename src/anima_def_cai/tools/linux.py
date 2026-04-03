@@ -5,8 +5,10 @@ from __future__ import annotations
 import shlex
 import subprocess
 
-from .common import ToolObservation
+from anima_def_cai.safety.guardrails import GuardrailDecision, check_command
 from anima_def_cai.settings import DEFCAISettings
+
+from .common import ToolObservation
 
 
 def run_linux_command(
@@ -25,6 +27,19 @@ def run_linux_command(
             allowed=False,
         )
 
+    # Gate 1: guardrail check on the full command string
+    guardrail = check_command(cmd)
+    if guardrail.decision == GuardrailDecision.BLOCK:
+        return ToolObservation(
+            tool_name="linux",
+            command=cmd,
+            stderr=f"Blocked by guardrail: {guardrail.reason}",
+            exit_code=126,
+            allowed=False,
+            metadata={"policy": active_settings.tool_policy, "guardrail_rule": guardrail.rule},
+        )
+
+    # Gate 2: executable allowlist
     executable = parts[0]
     if executable not in active_settings.command_allowlist:
         return ToolObservation(
@@ -50,5 +65,8 @@ def run_linux_command(
         stderr=completed.stderr,
         exit_code=completed.returncode,
         allowed=True,
-        metadata={"policy": active_settings.tool_policy},
+        metadata={
+            "policy": active_settings.tool_policy,
+            "guardrail": guardrail.decision.value,
+        },
     )

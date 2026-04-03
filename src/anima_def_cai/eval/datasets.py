@@ -75,14 +75,17 @@ def _load_cybermetric(path: Path) -> list[BenchmarkSample]:
     questions = data.get("questions", data if isinstance(data, list) else [])
     samples: list[BenchmarkSample] = []
     for idx, item in enumerate(questions):
+        question = item.get("question", "")
+        if not question:
+            continue
         samples.append(
             BenchmarkSample(
                 id=f"cybermetric-{idx}",
                 benchmark=BenchmarkType.CYBERMETRIC,
-                question=item["question"],
+                question=question,
                 choices=item.get("answers", {}),
                 answer=item.get("solution", ""),
-                prompt=item["question"],
+                prompt=question,
                 metadata={"source_file": path.name},
             )
         )
@@ -95,10 +98,13 @@ def _load_seceval(path: Path) -> list[BenchmarkSample]:
     items = data if isinstance(data, list) else data.get("questions", [])
     samples: list[BenchmarkSample] = []
     for item in items:
+        question = item.get("question", "")
+        if not question:
+            continue
         choices_raw = item.get("choices", [])
         choices: dict[str, str] = {}
         for entry in choices_raw:
-            if isinstance(entry, str) and len(entry) >= 3 and entry[1] == ":":
+            if isinstance(entry, str) and len(entry) >= 3 and entry[1] in ":.)":
                 choices[entry[0]] = entry[2:].strip()
             elif isinstance(entry, str):
                 choices[entry[:1]] = entry
@@ -106,10 +112,10 @@ def _load_seceval(path: Path) -> list[BenchmarkSample]:
             BenchmarkSample(
                 id=item.get("id", f"seceval-{len(samples)}"),
                 benchmark=BenchmarkType.SECEVAL,
-                question=item["question"],
+                question=question,
                 choices=choices,
                 answer=item.get("answer", ""),
-                prompt=item["question"],
+                prompt=question,
                 metadata={
                     "source": item.get("source", ""),
                     "topics": item.get("topics", []),

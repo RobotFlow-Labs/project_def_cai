@@ -15,7 +15,9 @@ def web_search(query: str) -> ToolObservation:
             stdout="Network-disabled stub result",
             metadata={"stub": True},
         )
-    return ToolObservation(tool_name="web_search", command=query, stdout="Live search not yet wired")
+    return ToolObservation(
+        tool_name="web_search", command=query, stdout="Live search not yet wired"
+    )
 
 
 def shodan_lookup(target: str) -> ToolObservation:

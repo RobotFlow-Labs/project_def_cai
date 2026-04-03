@@ -53,7 +53,10 @@ def pause_and_collect(state: TurnState, operator_input: str = "") -> TurnState:
 
 
 def run_session(request: SessionRequest, settings: DEFCAISettings) -> SessionResult:
-    state = TurnState(objective=request.objective, trace_id="trace-session-001")
+    import uuid
+
+    trace_id = f"trace-{uuid.uuid4().hex[:12]}"
+    state = TurnState(objective=request.objective, trace_id=trace_id)
     pattern = resolve_pattern(request)
     summary = run_turn(state, pattern, settings)
     artifact_dir = write_artifacts(
