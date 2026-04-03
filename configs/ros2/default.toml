@@ -1,0 +1,18 @@
+# DEF-CAI ROS2 Integration Config
+# Paper ref: §4 — robot security case studies
+
+[ros2]
+enabled = false
+domain_id = 42
+
+[target]
+host = "localhost"
+transport = "udp"
+sros2_enabled = false
+namespaces = ["/"]
+
+[inspection]
+capture_graph = true
+sample_topics = true
+safety_checks = true
+topic_timeout_seconds = 5.0
