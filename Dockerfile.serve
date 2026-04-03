@@ -1,11 +1,30 @@
-FROM python:3.11-slim
+# DEF-CAI Serving Container
+# 3-layer pattern: python-slim -> uv install -> module code
+FROM python:3.11-slim AS base
 
 WORKDIR /app
 
-COPY pyproject.toml README.md ./
-COPY src ./src
+# Layer 1: system deps
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
 
+# Layer 2: Python deps via uv
+COPY pyproject.toml README.md ./
 RUN pip install --no-cache-dir uv \
-    && uv pip install --system -e .
+    && uv pip install --system -e ".[dev]"
+
+# Layer 3: module code
+COPY src ./src
+COPY configs ./configs
+
+ENV ANIMA_MODULE_NAME=def-cai \
+    ANIMA_SERVE_PORT=8080 \
+    DEF_CAI_TOOL_POLICY=restricted
+
+EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD curl -f http://localhost:8080/health || exit 1
 
 CMD ["python", "-m", "anima_def_cai.serve"]
