@@ -145,7 +145,7 @@ src/anima_def_cai/
 | PRD# | Task | Status |
 |---|---|---|
 | [PRD-01](prds/PRD-01-foundation.md) | Foundation, naming repair, config, schemas | ✅ |
-| [PRD-02](prds/PRD-02-core-model.md) | Core orchestration model: agents, patterns, handoffs, runtime | ⬜ |
+| [PRD-02](prds/PRD-02-core-model.md) | Core orchestration model: agents, patterns, handoffs, runtime | ✅ |
 | [PRD-03](prds/PRD-03-inference.md) | CLI runtime, tool execution, findings pipeline | ⬜ |
 | [PRD-04](prds/PRD-04-evaluation.md) | CAIBench-style evaluation and report generation | ⬜ |
 | [PRD-05](prds/PRD-05-api-docker.md) | FastAPI and Docker packaging | ⬜ |
