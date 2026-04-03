@@ -1,0 +1,42 @@
+# DEF-CAI Docker Compose — Dual backend (CUDA + MLX)
+services:
+  # CUDA variant — GPU server / Jetson
+  def-cai-cuda:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.cuda
+    env_file: ../.env.serve
+    ports:
+      - "${ANIMA_SERVE_PORT:-8080}:8080"
+    network_mode: host
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    profiles:
+      - cuda
+
+  # MLX variant — Apple Silicon
+  def-cai-mlx:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.mlx
+    env_file: ../.env.serve
+    ports:
+      - "${ANIMA_SERVE_PORT:-8080}:8080"
+    restart: unless-stopped
+    profiles:
+      - mlx
+
+  # Test runner (uses CPU-only slim image)
+  def-cai-test:
+    build:
+      context: ..
+      dockerfile: Dockerfile.serve
+    command: ["python", "-m", "pytest", "tests/", "-v"]
+    profiles:
+      - test

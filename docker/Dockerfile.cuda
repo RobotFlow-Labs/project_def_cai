@@ -1,0 +1,41 @@
+# DEF-CAI CUDA Container — GPU server + Jetson deployment
+# Layer 1: NVIDIA CUDA base
+# Layer 2: Python + uv + deps
+# Layer 3: Module code
+FROM nvidia/cuda:12.8.0-runtime-ubuntu22.04 AS base
+
+ENV DEBIAN_FRONTEND=noninteractive
+WORKDIR /app
+
+# Layer 1: system deps
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3.11 python3.11-venv python3-pip \
+    curl git \
+    && ln -sf /usr/bin/python3.11 /usr/bin/python3 \
+    && ln -sf /usr/bin/python3.11 /usr/bin/python \
+    && rm -rf /var/lib/apt/lists/*
+
+# Layer 2: Python deps via uv
+RUN pip install --no-cache-dir uv
+COPY pyproject.toml README.md ./
+RUN uv pip install --system -e ".[cuda,dev]" \
+    --index-url https://download.pytorch.org/whl/cu128
+
+# Layer 3: module code + configs
+COPY src ./src
+COPY configs ./configs
+COPY tests ./tests
+
+ENV ANIMA_MODULE_NAME=def-cai \
+    ANIMA_SERVE_PORT=8080 \
+    ANIMA_SERVE_HOST=0.0.0.0 \
+    ANIMA_DEVICE=cuda \
+    DEF_CAI_COMPUTE_BACKEND=cuda \
+    DEF_CAI_TOOL_POLICY=restricted
+
+EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD curl -f http://localhost:8080/health || exit 1
+
+CMD ["python", "-m", "anima_def_cai.serve"]
