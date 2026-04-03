@@ -2,7 +2,7 @@
 
 > Module: DEF-CAI | Priority: P0  
 > Depends on: PRD-01, PRD-02  
-> Status: ⬜ Not started
+> Status: ✅ Complete
 
 ## Objective
 When this PRD is done, DEF-CAI can run a local security session from CLI, invoke safe tool adapters, capture outputs as structured findings, and allow operator interruption through HITL.
@@ -15,11 +15,11 @@ The paper shows CAI solving security tasks by alternating reasoning and tool use
 "Through the command-line interface, users can seamlessly interact with agents at any point during execution by simply pressing Ctrl+C."
 
 ## Acceptance Criteria
-- [ ] CLI launches a session with selectable agent or pattern
-- [ ] Tool adapters cover Linux command execution, code execution, web search, and optional Shodan/SSH/traffic capture
-- [ ] Findings are emitted as structured markdown+JSON artifacts
-- [ ] HITL interrupt path pauses execution cleanly and accepts operator instructions
-- [ ] `uv run pytest tests/test_cli_runtime.py tests/test_tools_linux.py tests/test_findings.py -v` passes
+- [x] CLI launches a session with selectable agent or pattern
+- [x] Tool adapters cover Linux command execution, code execution, web search, and optional Shodan/SSH/traffic capture
+- [x] Findings are emitted as structured markdown+JSON artifacts
+- [x] HITL interrupt path pauses execution cleanly and accepts operator instructions
+- [x] `uv run pytest tests/test_cli_runtime.py tests/test_tools_linux.py tests/test_findings.py -v` passes
 
 ## Files to Create
 | File | Purpose | Paper Ref | Est. Lines |
