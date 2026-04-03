@@ -2,7 +2,8 @@
 
 ## Paper
 **CAI: Robot Cybersecurity Assessment Framework**
-arXiv: https://arxiv.org/abs/2503.16012
+Verified implementation paper: https://arxiv.org/abs/2504.06017
+Scaffold note: `2503.16012` in the original placeholder docs was incorrect for CAI
 
 ## Module Identity
 - Codename: DEF-CAI
